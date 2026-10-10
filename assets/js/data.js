@@ -19,13 +19,6 @@ window.REDE_PRIME = {
     showPlaceholderNotices: true
   },
 
-  // Indicadores da faixa superior (valores do mockup, a confirmar com o cliente)
-  stats: [
-    { icon: "i-users",     value: "+500", label: "profissionais e empresas conectadas" },
-    { icon: "i-briefcase", value: "+200", label: "projetos atendidos" },
-    { icon: "i-nodes",     value: "+10",  label: "segmentos da construção civil" }
-  ],
-
   // Números do painel "Nossa rede" (valores do mockup, a confirmar)
   regionStats: [
     { value: "+10",  label: "cidades atendidas" },

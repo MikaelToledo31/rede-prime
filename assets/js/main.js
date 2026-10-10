@@ -17,8 +17,6 @@
   });
 
   /* ---------- conteúdo vindo de data.js ---------- */
-  $("#stats").innerHTML = D.stats.map(s =>
-    `<div class="stat">${icon(s.icon)}<div><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div></div>`).join("");
   $("#region-stats").innerHTML = D.regionStats.map(s => `<div><b>${esc(s.value)}</b><span>${esc(s.label)}</span></div>`).join("");
   $("#cities").innerHTML = D.cities.map(c => `<li>${icon("i-pin")}${esc(c)}</li>`).join("") +
     `<li>${icon("i-pin")}E mais…</li>`;
@@ -46,7 +44,6 @@
     </article>`).join("");
   $$("#opps [data-img]").forEach(el => { const im = new Image(); const abs = new URL(el.dataset.img, document.baseURI).href; im.onload = () => el.style.setProperty("--img", `url("${abs}")`); im.src = abs; });
   if (C.showPlaceholderNotices) {
-    $("#stats-notice").hidden = false;
     $("#opps-notice").hidden = false;
   }
 

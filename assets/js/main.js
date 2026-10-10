@@ -12,8 +12,8 @@
   /* ---------- imagens substituíveis: usa o arquivo só se ele existir ---------- */
   $$("[data-img]").forEach(el => {
     const im = new Image();
-    im.onload = () => el.style.setProperty("--img", `url("${el.dataset.img}")`);
-    im.src = el.dataset.img;
+    const abs = new URL(el.dataset.img, document.baseURI).href; im.onload = () => el.style.setProperty("--img", `url("${abs}")`);
+    im.src = abs;
   });
 
   /* ---------- conteúdo vindo de data.js ---------- */
@@ -44,7 +44,7 @@
       <div class="opp-body"><span class="code">${esc(o.code)}</span><span class="cat">${esc(o.category)}</span>
         <span>${esc(o.city)}</span><span>${esc(o.type)}</span><span class="desc">${esc(o.description)}</span></div>
     </article>`).join("");
-  $$("#opps [data-img]").forEach(el => { const im = new Image(); im.onload = () => el.style.setProperty("--img", `url("${el.dataset.img}")`); im.src = el.dataset.img; });
+  $$("#opps [data-img]").forEach(el => { const im = new Image(); const abs = new URL(el.dataset.img, document.baseURI).href; im.onload = () => el.style.setProperty("--img", `url("${abs}")`); im.src = abs; });
   if (C.showPlaceholderNotices) {
     $("#stats-notice").hidden = false;
     $("#opps-notice").hidden = false;

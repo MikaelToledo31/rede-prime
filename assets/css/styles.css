@@ -81,9 +81,9 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 
 /* ---------- hero ---------- */
 .hero{position:relative;isolation:isolate;min-height:clamp(560px,86vh,780px);display:grid;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
-.hero-art{position:absolute;inset:0;z-index:-2;width:100%;height:100%}
+.hero-art{position:absolute;inset:0;z-index:-3;width:100%;height:100%}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,10,17,.92) 0%,rgba(6,10,17,.7) 55%,rgba(6,10,17,.9) 100%)}
-.hero-photo{position:absolute;inset:0;z-index:-2;background:var(--img,none) center/cover no-repeat}
+.hero-photo{position:absolute;inset:0;z-index:-2;background:var(--img,none) 70% center/cover no-repeat}
 .hero-copy{padding-block:56px;max-width:600px;animation:rise .9s var(--ease) both}
 .hero .label{margin-bottom:18px;font-size:.7rem}
 .hero h1{font-size:clamp(1.9rem,6.2vw,3.5rem)}
@@ -115,6 +115,7 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 .svc .ic-top{position:absolute!important;top:16px;left:16px;width:24px;height:24px;color:#dfe5ee}
 .svc h3{font:400 .86rem var(--font-display);letter-spacing:.14em;text-transform:uppercase}
 .svc p{font-size:.76rem;color:var(--muted);line-height:1.5}
+.svc .ph::after{background:linear-gradient(180deg,rgba(6,10,17,.62) 0%,rgba(6,10,17,.66) 40%,rgba(6,10,17,.94) 100%)}
 .svc:hover,.svc:focus-visible{border-color:var(--line-2)}
 .svc:hover .ph::before{transform:scale(1.04)}
 

@@ -54,9 +54,16 @@
     if (C.whatsappNumber) rows.push(`<li><a href="https://wa.me/${esc(C.whatsappNumber)}" rel="noopener">WhatsApp</a></li>`);
     if (C.email) rows.push(`<li><a href="mailto:${esc(C.email)}">${esc(C.email)}</a></li>`);
     if (C.address) rows.push(`<li>${esc(C.address)}</li>`);
-    Object.entries(C.social).forEach(([k, u]) => { if (u) rows.push(`<li><a href="${esc(u)}" rel="noopener" target="_blank">${k[0].toUpperCase() + k.slice(1)}</a></li>`); });
+    const ig = C.social.instagram;
+    if (ig) rows.push(`<li><a href="${esc(ig)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Rede Prime (abre em nova aba)">@${esc(ig.replace(/\/+$/, "").split("/").pop())}</a></li>`);
+    Object.entries(C.social).forEach(([k, u]) => { if (u && k !== "instagram") rows.push(`<li><a href="${esc(u)}" rel="noopener noreferrer" target="_blank">${k[0].toUpperCase() + k.slice(1)}</a></li>`); });
     rows.push(`<li>Ribeirão Preto – SP</li>`);
     $("#foot-contact").innerHTML = rows.join("");
+  })();
+  // ícones de redes sociais (só os que tiverem URL em data.js)
+  (() => {
+    const box = $("#foot-social"); if (!C.social.instagram) return;
+    box.innerHTML = `<a class="social" href="${esc(C.social.instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Rede Prime">${icon("i-instagram")}</a>`;
   })();
   $("#year").textContent = new Date().getFullYear();
 

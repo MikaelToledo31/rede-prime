@@ -205,6 +205,10 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 .foot li{margin-bottom:8px;font-size:.86rem}
 .foot li a,.foot li button{color:#d3d9e2;background:none;border:0;padding:0;text-align:left;font-size:inherit}
 .foot li a:hover,.foot li button:hover{color:var(--accent)}
+.social-row{display:flex;gap:10px;margin-top:20px}
+.social{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line-2);border-radius:2px;color:#d3d9e2;transition:color .25s,border-color .25s,background .25s}
+.social .ic{width:20px;height:20px}
+.social:hover{color:var(--accent);border-color:var(--accent);background:rgba(255,255,255,.04)}
 .foot-legal{border-top:1px solid var(--line);padding-block:22px;display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:.76rem;color:var(--dim)}
 .foot-legal div{display:flex;gap:18px;flex-wrap:wrap}
 .foot-legal button{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:.76rem}
@@ -230,6 +234,8 @@ dialog::backdrop{background:rgba(2,4,8,.78);backdrop-filter:blur(4px)}
 .res b{font:400 .95rem var(--font-display);letter-spacing:.1em;text-transform:uppercase;display:block}
 .res span{font-size:.78rem;color:var(--muted)}
 .res mark{background:none;color:var(--accent)}
+
+@media (max-width:380px){.logo svg{width:32px;height:32px}.logo{gap:8px}.logo-t b{font-size:1.05rem;letter-spacing:.2em}.logo-t small{letter-spacing:.2em;font-size:.45rem}.header-in{gap:8px}.header-actions{gap:2px}}
 
 /* ---------- breakpoints ---------- */
 @media (min-width:700px){

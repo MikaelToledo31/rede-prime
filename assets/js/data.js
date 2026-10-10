@@ -13,7 +13,7 @@ window.REDE_PRIME = {
     email: "",
     phone: "",
     address: "",
-    social: { instagram: "", linkedin: "", youtube: "" },
+    social: { instagram: "https://www.instagram.com/redeprimes/", linkedin: "", youtube: "" },
     // true = mostra avisos "valores ilustrativos / exemplo". Mude para false quando
     // os números e as oportunidades forem confirmados pelo cliente.
     showPlaceholderNotices: true

@@ -8,6 +8,10 @@
   const icon = (id, cls = "") => `<svg class="ic ${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
   const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const loadedAt = Date.now();
+  const waLink = (text = C.whatsappMessage) => `https://wa.me/${C.whatsappNumber}?text=${encodeURIComponent(text).replace(/!/g, "%21")}`;
+  const waLabel = n => { const d = n.replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, ""); return d.length === 11 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}` : d.length === 10 ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}` : "+" + n; };
+  // botões marcados com data-wa passam a abrir o WhatsApp (sem número configurado, mantêm o destino original)
+  if (C.whatsappNumber) $$("[data-wa]").forEach(a => { a.href = waLink(); a.target = "_blank"; a.rel = "noopener noreferrer"; a.setAttribute("aria-label", a.textContent.trim() + " (abre o WhatsApp em nova aba)"); });
 
   /* ---------- imagens substituíveis: usa o arquivo só se ele existir ---------- */
   $$("[data-img]").forEach(el => {
@@ -51,7 +55,7 @@
   (() => {
     const rows = [];
     if (C.phone) rows.push(`<li><a href="tel:${esc(C.phone.replace(/\D/g, ""))}">${esc(C.phone)}</a></li>`);
-    if (C.whatsappNumber) rows.push(`<li><a href="https://wa.me/${esc(C.whatsappNumber)}" rel="noopener">WhatsApp</a></li>`);
+    if (C.whatsappNumber) rows.push(`<li><a class="wa-link" href="${esc(waLink())}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da Rede Prime ${esc(waLabel(C.whatsappNumber))} (abre em nova aba)">${icon("i-whatsapp")}${esc(waLabel(C.whatsappNumber))}</a></li>`);
     if (C.email) rows.push(`<li><a href="mailto:${esc(C.email)}">${esc(C.email)}</a></li>`);
     if (C.address) rows.push(`<li>${esc(C.address)}</li>`);
     const ig = C.social.instagram;
@@ -159,6 +163,17 @@
     return !first;
   }
 
+  const LBL = { nome:"Nome", whatsapp:"WhatsApp", servico:"Serviço", cidade:"Cidade", descricao:"Necessidade", prazo:"Prazo", empresa:"Empresa", segmento:"Segmento", email:"E-mail" };
+  const formMessage = d => C.whatsappMessage + "\n\n" + Object.keys(LBL).filter(k => d[k]).map(k => `${LBL[k]}: ${d[k]}`).join("\n");
+  const waBtn = $("#contato-wa");
+  if (waBtn && C.whatsappNumber) {
+    waBtn.hidden = false;
+    waBtn.addEventListener("click", () => {
+      const form = waBtn.closest("form"); if (!validate(form)) return;
+      window.open(waLink(formMessage(Object.fromEntries(new FormData(form).entries()))), "_blank", "noopener,noreferrer");
+    });
+  }
+
   $$("form[data-form]").forEach(form => {
     $$("input,select,textarea", form).forEach(f => f.addEventListener("input", () => {
       if (f.getAttribute("aria-invalid")) { f.removeAttribute("aria-invalid"); const e = $(`#${f.id}-err`); if (e) e.textContent = ""; }
@@ -174,12 +189,8 @@
       const data = Object.fromEntries(new FormData(form).entries());
       delete data.website; data.formulario = form.dataset.form; data.pagina = location.href;
       if (!C.formEndpoint) {
-        let alt = "";
-        if (C.whatsappNumber) {
-          const txt = Object.entries(data).filter(([k]) => !["formulario","pagina","consent"].includes(k)).map(([k, v]) => `${k}: ${v}`).join("\n");
-          alt = ` Você pode enviar esta mensagem direto pelo <a href="https://wa.me/${esc(C.whatsappNumber)}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener">WhatsApp</a>.`;
-        }
-        show("bad", "O envio ainda não está ativo neste site: o formulário não está conectado a um serviço de recebimento. Nenhum dado foi enviado." + alt);
+        const alt = C.whatsappNumber ? ` Para não perder sua solicitação, <a href="${esc(waLink(formMessage(data)))}" target="_blank" rel="noopener noreferrer">continue pelo WhatsApp</a>: suas informações já vão preenchidas.` : "";
+        show("bad", "O envio por formulário ainda não está ativo neste site. Nenhum dado foi enviado." + alt);
         return;
       }
       btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.firstChild.textContent = "Enviando… ";

@@ -9,7 +9,8 @@ window.REDE_PRIME = {
     // URL que recebe os formulários (Formspree, Getform, Web3Forms, API própria...).
     // Enquanto estiver vazio, o site NÃO finge enviar: informa que o envio não está ativo.
     formEndpoint: "",
-    whatsappNumber: "",   // somente dígitos com DDI+DDD, ex.: "55DDDNUMERO" (a definir pelo cliente)
+    whatsappNumber: "5516992614260",   // somente dígitos: DDI + DDD + número (+55 16 99261-4260)
+    whatsappMessage: "Olá! Vim pelo site da Rede Prime e gostaria de mais informações.",
     email: "",
     phone: "",
     address: "",

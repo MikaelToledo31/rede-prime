@@ -14,8 +14,8 @@ Envie a pasta inteira para qualquer hospedagem estática (Netlify, Vercel, Cloud
 - `assets/css/styles.css`: cores, fontes e espaçamentos em `:root`.
 - `assets/img/`: coloque fotos do cliente com estes nomes (JPG, ~1600px, comprimidas): `hero.jpg`, `como-funciona.jpg`, `cliente.jpg`, `parceiro.jpg`, `servico-projeto.jpg`, `servico-estrutura.jpg`, `servico-instalacoes.jpg`, `servico-esquadrias.jpg`, `servico-acabamentos.jpg`, `servico-area-externa.jpg`, `servico-moveis.jpg`, `servico-pos-obra.jpg`. Enquanto não existirem, o site usa um fundo arquitetônico abstrato.
 
-## Formulários (precisam de configuração)
-Defina `config.formEndpoint` em data.js com a URL de um serviço (Formspree, Getform, Web3Forms) ou API própria que aceite POST JSON. Sem isso o site informa que o envio não está ativo (não finge sucesso).
+## Formulários
+Os dois formulários ("Tem uma demanda?" e "Área do Parceiro") apenas montam uma mensagem e abrem o WhatsApp da Rede Prime (número em `config.whatsappNumber`). O site não envia, salva nem armazena os dados; o usuário revisa e envia a mensagem pelo próprio WhatsApp. Os modelos de mensagem estão em `MSG`, no `assets/js/main.js`.
 
 ## Antes de publicar
 1. Definir `canonical` e `og:image` no index.html; criar sitemap.xml e favicon final.

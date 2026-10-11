@@ -58,11 +58,16 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,17,.05) 0%,rgba(6,10,17,.55) 55%,rgba(6,10,17,.92) 100%)}
 
 /* ---------- header ---------- */
-.site-header{position:sticky;top:0;z-index:100;background:rgba(6,10,17,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site-header{position:sticky;top:0;z-index:100;border-bottom:1px solid var(--line)}
+/* o desfoque fica num pseudo-elemento: backdrop-filter no próprio header prenderia o menu mobile (position:fixed) dentro dele */
+.site-header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(6,10,17,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .header-in{display:flex;align-items:center;gap:20px;height:var(--header-h)}
 .logo{display:flex;align-items:center;flex:none}
-.logo img{display:block;height:calc(var(--header-h) - 8px);width:auto;max-width:none;object-fit:contain}
-.logo-foot img{height:auto;width:min(170px,50vw)}
+.logo{--lh:calc(var(--header-h) - 6px)}
+/* o PNG tem ~10% de margem transparente à esquerda: compensação para alinhar o desenho à grade */
+.logo img{display:block;height:var(--lh);width:auto;max-width:none;object-fit:contain;margin-left:calc(var(--lh) * -.107)}
+.logo-foot{--fw:min(190px,56vw)}
+.logo-foot img{height:auto;width:var(--fw);margin-left:calc(var(--fw) * -.1)}
 .nav{position:fixed;inset:var(--header-h) 0 0 0;background:var(--bg);padding:24px var(--pad) 40px;overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s var(--ease),visibility .25s}
 .nav.open{visibility:visible;opacity:1;transform:none}
 .nav ul{display:flex;flex-direction:column}
@@ -207,7 +212,7 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 .foot li a.wa-link{display:inline-flex;align-items:center;gap:8px}
 .foot li a.wa-link .ic{width:1.15em;height:1.15em}
 .foot li a:hover,.foot li button:hover{color:var(--accent)}
-.social-row{display:flex;gap:10px;margin-top:20px}
+.social-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .social{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line-2);border-radius:2px;color:#d3d9e2;transition:color .25s,border-color .25s,background .25s}
 .social .ic{width:20px;height:20px}
 .social:hover{color:var(--accent);border-color:var(--accent);background:rgba(255,255,255,.04)}
@@ -237,7 +242,7 @@ dialog::backdrop{background:rgba(2,4,8,.78);backdrop-filter:blur(4px)}
 .res span{font-size:.78rem;color:var(--muted)}
 .res mark{background:none;color:var(--accent)}
 
-@media (max-width:380px){.logo:not(.logo-foot) img{height:calc(var(--header-h) - 14px)}.header-in{gap:8px}.header-actions{gap:2px}}
+@media (max-width:380px){.logo:not(.logo-foot){--lh:calc(var(--header-h) - 12px)}.header-in{gap:8px}.header-actions{gap:2px}}
 
 /* ---------- breakpoints ---------- */
 @media (min-width:700px){

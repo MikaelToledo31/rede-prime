@@ -7,7 +7,6 @@
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
   const icon = (id, cls = "") => `<svg class="ic ${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
   const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  const loadedAt = Date.now();
   const waLink = (text = C.whatsappMessage) => `https://wa.me/${C.whatsappNumber}?text=${encodeURIComponent(text).replace(/!/g, "%21")}`;
   const waLabel = n => { const d = n.replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, ""); return d.length === 11 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}` : d.length === 10 ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}` : "+" + n; };
   // botões marcados com data-wa passam a abrir o WhatsApp (sem número configurado, mantêm o destino original)
@@ -65,10 +64,12 @@
     rows.push(`<li>Ribeirão Preto – SP</li>`);
     $("#foot-contact").innerHTML = rows.join("");
   })();
-  // ícones de redes sociais (só os que tiverem URL em data.js)
+  // ícones de redes sociais (só os que tiverem URL/número em data.js): Instagram e, ao lado, WhatsApp
   (() => {
-    const box = $("#foot-social"); if (!C.social.instagram) return;
-    box.innerHTML = `<a class="social" href="${esc(C.social.instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Rede Prime">${icon("i-instagram")}</a>`;
+    const btns = [];
+    if (C.social.instagram) btns.push(`<a class="social" href="${esc(C.social.instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Rede Prime">${icon("i-instagram")}</a>`);
+    if (C.whatsappNumber) btns.push(`<a class="social" href="https://wa.me/${esc(C.whatsappNumber)}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da Rede Prime">${icon("i-whatsapp")}</a>`);
+    $("#foot-social").innerHTML = btns.join("");
   })();
   $("#year").textContent = new Date().getFullYear();
 
@@ -149,7 +150,7 @@
   function validate(form) {
     let first = null;
     $$("input,select,textarea", form).forEach(f => {
-      if (!f.name || f.classList.contains("hp-in")) return;
+      if (!f.name) return;
       const err = $(`#${f.id}-err`); let msg = "";
       const v = f.type === "checkbox" ? f.checked : f.value.trim();
       if (f.required && !v) msg = f.dataset.msg || "Preencha este campo.";
@@ -164,47 +165,45 @@
     return !first;
   }
 
-  const LBL = { nome:"Nome", whatsapp:"WhatsApp", servico:"Serviço", cidade:"Cidade", descricao:"Necessidade", prazo:"Prazo", empresa:"Empresa", segmento:"Segmento", email:"E-mail" };
-  const formMessage = d => C.whatsappMessage + "\n\n" + Object.keys(LBL).filter(k => d[k]).map(k => `${LBL[k]}: ${d[k]}`).join("\n");
-  const waBtn = $("#contato-wa");
-  if (waBtn && C.whatsappNumber) {
-    waBtn.hidden = false;
-    waBtn.addEventListener("click", () => {
-      const form = waBtn.closest("form"); if (!validate(form)) return;
-      window.open(waLink(formMessage(Object.fromEntries(new FormData(form).entries()))), "_blank", "noopener,noreferrer");
-    });
+  /* Os formulários só montam uma mensagem e abrem o WhatsApp. Nada é enviado, salvo ou
+     armazenado pelo site: o usuário revisa e envia a mensagem manualmente no WhatsApp. */
+  const MSG = {
+    parceiro: {
+      intro: "Olá! Tenho interesse em fazer parte da Rede Prime como parceiro.",
+      titulo: "*Meus dados:*",
+      campos: [["nome", "Nome"], ["empresa", "Empresa"], ["whatsapp", "WhatsApp"], ["segmento", "Área de atuação"], ["cidade", "Cidade"], ["email", "E-mail"]],
+      fim: "Gostaria de receber mais informações sobre como fazer parte da Rede Prime."
+    },
+    cliente: {
+      intro: "Olá! Vim pelo site da Rede Prime e gostaria de solicitar uma conexão para meu projeto.",
+      titulo: "*Detalhes da minha solicitação:*",
+      campos: [["nome", "Nome"], ["whatsapp", "WhatsApp"], ["servico", "Serviço desejado"], ["cidade", "Cidade"], ["descricao", "Descrição da necessidade"], ["prazo", "Prazo desejado"]],
+      fim: "Gostaria de conversar sobre essa solicitação e conhecer as soluções disponíveis na Rede Prime."
+    }
+  };
+  // só entram na mensagem os campos que o usuário realmente preencheu
+  function buildMessage(type, data) {
+    const m = MSG[type];
+    const linhas = m.campos.filter(([k]) => (data[k] || "").trim()).map(([k, rotulo]) => `${rotulo}: ${data[k].trim()}`);
+    return [m.intro, "", m.titulo, "", ...linhas, "", m.fim].join("\n");
   }
 
   $$("form[data-form]").forEach(form => {
     $$("input,select,textarea", form).forEach(f => f.addEventListener("input", () => {
       if (f.getAttribute("aria-invalid")) { f.removeAttribute("aria-invalid"); const e = $(`#${f.id}-err`); if (e) e.textContent = ""; }
     }));
-    form.addEventListener("submit", async ev => {
+    form.addEventListener("submit", ev => {
       ev.preventDefault();
-      const st = $(".status", form), btn = $('button[type="submit"]', form), label = btn.firstChild.textContent;
+      const st = $(".status", form), btn = $('button[type="submit"]', form);
       const show = (cls, html) => { st.className = "status show " + cls; st.innerHTML = html; };
       st.className = "status";
-      if (!validate(form)) return;
-      // proteções básicas: honeypot + tempo mínimo de preenchimento
-      if ($(".hp-in", form).value || Date.now() - loadedAt < 3000) { show("bad", "Não foi possível enviar agora. Aguarde alguns segundos e tente novamente."); return; }
-      const data = Object.fromEntries(new FormData(form).entries());
-      delete data.website; data.formulario = form.dataset.form; data.pagina = location.href;
-      if (!C.formEndpoint) {
-        const alt = C.whatsappNumber ? ` Para não perder sua solicitação, <a href="${esc(waLink(formMessage(data)))}" target="_blank" rel="noopener noreferrer">continue pelo WhatsApp</a>: suas informações já vão preenchidas.` : "";
-        show("bad", "O envio por formulário ainda não está ativo neste site. Nenhum dado foi enviado." + alt);
-        return;
-      }
-      btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.firstChild.textContent = "Enviando… ";
-      show("", "Enviando sua solicitação…");
-      const ac = new AbortController(), t = setTimeout(() => ac.abort(), 15000);
-      try {
-        const r = await fetch(C.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data), signal: ac.signal });
-        if (!r.ok) throw new Error(r.status);
-        form.reset();
-        show("ok", form.dataset.form === "parceiro" ? "Cadastro enviado. A equipe da Rede Prime entrará em contato." : "Solicitação enviada. A Rede Prime entrará em contato pelo WhatsApp informado.");
-      } catch (e) {
-        show("bad", e.name === "AbortError" ? "O envio demorou demais. Verifique sua conexão e tente novamente." : "Não foi possível enviar. Seus dados continuam no formulário; tente novamente em instantes.");
-      } finally { clearTimeout(t); btn.disabled = false; btn.removeAttribute("aria-busy"); btn.firstChild.textContent = label; st.focus?.(); }
+      if (btn.disabled) return;                       // evita cliques duplos
+      if (!validate(form)) return;                    // campo inválido: não abre o WhatsApp
+      if (!C.whatsappNumber) { show("bad", "O número de WhatsApp da Rede Prime ainda não foi configurado."); return; }
+      const url = waLink(buildMessage(form.dataset.form, Object.fromEntries(new FormData(form).entries())));
+      window.open(url, "_blank", "noopener,noreferrer");
+      btn.disabled = true; setTimeout(() => { btn.disabled = false; }, 2500);
+      show("", `Revise os dados e envie a mensagem pelo WhatsApp para concluir o contato. Se o WhatsApp não abriu, <a href="${esc(url)}" target="_blank" rel="noopener noreferrer">toque aqui para abrir</a>.`);
     });
   });
 })();

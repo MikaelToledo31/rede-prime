@@ -33,10 +33,10 @@ window.REDE_PRIME = {
   // e troque "sample" para false.
   opportunities: [
     { code:"RP-0248", category:"Marmoraria", city:"Ribeirão Preto - SP", type:"Residencial",
-      description:"Bancadas e revestimentos em pedra para residência.", status:"Nova", sample:true, img:"" },
+      description:"Bancadas e revestimentos em pedra para residência.", status:"Nova", sample:false, img:"assets/img/oportunidade-marmoraria.jpg" },
     { code:"RP-0249", category:"Drywall", city:"Sertãozinho - SP", type:"Comercial",
-      description:"Divisórias e forros para sala comercial.", status:"Nova", sample:true, img:"" },
+      description:"Divisórias e forros para sala comercial.", status:"Nova", sample:false, img:"assets/img/oportunidade-drywall.jpg" },
     { code:"RP-0250", category:"Esquadrias de Alumínio", city:"Ribeirão Preto - SP", type:"Residencial alto padrão",
-      description:"Fornecimento e instalação de esquadrias.", status:"Nova", sample:true, img:"" }
+      description:"Fornecimento e instalação de esquadrias.", status:"Nova", sample:false, img:"assets/img/oportunidade-esquadrias.jpg" }
   ]
 };

@@ -40,14 +40,15 @@
 
   $("#opps").innerHTML = D.opportunities.map((o, i) => `
     <article class="opp">
-      <div class="opp-img"><div class="ph" style="--x:${30 + i * 20}%;--y:55%;--s:${40 + i * 12}px" ${o.img ? `data-img="${esc(o.img)}"` : ""}></div>
+      <div class="opp-img${o.img ? " has-img" : ""}"><div class="ph" style="--x:${30 + i * 20}%;--y:55%;--s:${40 + i * 12}px" ${o.img ? `data-img="${esc(o.img)}"` : ""}></div>
         ${o.sample && C.showPlaceholderNotices ? '<span class="opp-tag ex">Exemplo ilustrativo</span>' : ""}
         <span class="opp-tag">${esc(o.status)}</span></div>
       <div class="opp-body"><span class="code">${esc(o.code)}</span><span class="cat">${esc(o.category)}</span>
         <span>${esc(o.city)}</span><span>${esc(o.type)}</span><span class="desc">${esc(o.description)}</span></div>
     </article>`).join("");
   $$("#opps [data-img]").forEach(el => { const im = new Image(); const abs = new URL(el.dataset.img, document.baseURI).href; im.onload = () => el.style.setProperty("--img", `url("${abs}")`); im.src = abs; });
-  if (C.showPlaceholderNotices) {
+  // o aviso só aparece enquanto houver alguma oportunidade marcada como exemplo (sample: true)
+  if (C.showPlaceholderNotices && D.opportunities.some(o => o.sample)) {
     $("#opps-notice").hidden = false;
   }
 

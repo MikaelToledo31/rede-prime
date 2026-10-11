@@ -9,7 +9,7 @@
   --accent:#e2bd86; --danger:#ff9a90; --ok:#86d6a6;
   --font-display:"Jost","Futura","Century Gothic",system-ui,sans-serif;
   --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --pad:clamp(16px,4vw,40px); --maxw:1360px; --header-h:68px;
+  --pad:clamp(16px,4vw,40px); --maxw:1360px; --header-h:76px;
   --gap:clamp(12px,1.6vw,20px); --section-y:clamp(40px,6vw,72px);
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -60,11 +60,9 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 /* ---------- header ---------- */
 .site-header{position:sticky;top:0;z-index:100;background:rgba(6,10,17,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .header-in{display:flex;align-items:center;gap:20px;height:var(--header-h)}
-.logo{display:flex;align-items:center;gap:12px;flex:none}
-.logo svg{width:40px;height:40px}
-.logo-t{display:flex;flex-direction:column;line-height:1}
-.logo-t b{font:300 1.3rem var(--font-display);letter-spacing:.3em}
-.logo-t small{font:400 .5rem var(--font-display);letter-spacing:.32em;color:var(--muted);margin-top:6px;text-transform:uppercase}
+.logo{display:flex;align-items:center;flex:none}
+.logo img{display:block;height:calc(var(--header-h) - 8px);width:auto;max-width:none;object-fit:contain}
+.logo-foot img{height:auto;width:min(170px,50vw)}
 .nav{position:fixed;inset:var(--header-h) 0 0 0;background:var(--bg);padding:24px var(--pad) 40px;overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .25s,transform .25s var(--ease),visibility .25s}
 .nav.open{visibility:visible;opacity:1;transform:none}
 .nav ul{display:flex;flex-direction:column}
@@ -158,12 +156,13 @@ h2.h-display{font-size:clamp(1.55rem,2.6vw,2.15rem)}
 .value-end p{font-size:.82rem;color:var(--muted);margin-top:12px}
 
 .opp-wrap{display:grid;gap:36px}
-.opp-intro h2{margin-bottom:16px;font-size:clamp(1.3rem,1.9vw,1.7rem);overflow-wrap:anywhere;letter-spacing:.03em}
+.opp-intro h2{margin-bottom:16px;font-size:clamp(1.15rem,1.55vw,1.5rem);overflow-wrap:break-word;letter-spacing:.02em}
 .opp-intro strong{display:block;font-weight:500;font-size:.92rem;margin-bottom:10px}
 .opp-intro .btn{margin-top:20px}
 .opp-grid{display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
 .opp{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--panel);overflow:hidden}
-.opp-img{position:relative;height:130px}
+.opp-img{position:relative;aspect-ratio:3/2}
+.opp-img.has-img .ph::after{display:none}
 .opp-tag{position:absolute;right:0;bottom:0;z-index:2;background:#16314f;border:1px solid rgba(120,170,230,.4);font-size:.68rem;padding:3px 12px}
 .opp-tag.ex{right:auto;left:0;top:0;bottom:auto;background:rgba(6,10,17,.85);border-color:var(--line-2);color:var(--muted)}
 .opp-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:2px;font-size:.78rem;color:var(--muted)}
@@ -238,7 +237,7 @@ dialog::backdrop{background:rgba(2,4,8,.78);backdrop-filter:blur(4px)}
 .res span{font-size:.78rem;color:var(--muted)}
 .res mark{background:none;color:var(--accent)}
 
-@media (max-width:380px){.logo svg{width:32px;height:32px}.logo{gap:8px}.logo-t b{font-size:1.05rem;letter-spacing:.2em}.logo-t small{letter-spacing:.2em;font-size:.45rem}.header-in{gap:8px}.header-actions{gap:2px}}
+@media (max-width:380px){.logo:not(.logo-foot) img{height:calc(var(--header-h) - 14px)}.header-in{gap:8px}.header-actions{gap:2px}}
 
 /* ---------- breakpoints ---------- */
 @media (min-width:700px){
@@ -275,7 +274,7 @@ dialog::backdrop{background:rgba(2,4,8,.78);backdrop-filter:blur(4px)}
   .only-desktop{display:inline-flex}
   .value{grid-template-columns:1fr 2.6fr 1.1fr;gap:clamp(24px,3vw,56px)}
   .value-end{border-top:0;border-left:1px solid var(--line);padding:0 0 0 32px}
-  .opp-wrap{grid-template-columns:minmax(190px,.55fr) 2fr minmax(300px,1fr);align-items:start}
+  .opp-wrap{grid-template-columns:minmax(220px,.6fr) 2fr minmax(300px,1fr);align-items:start}
   .opp-wrap .contact{grid-column:auto;padding-left:clamp(0px,1.5vw,24px)}
 }
 @media (min-width:1800px){

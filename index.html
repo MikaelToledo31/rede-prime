@@ -207,7 +207,7 @@
 <div class="fld"><label for="contato-cidade">Cidade</label><input id="contato-cidade" name="cidade" type="text" required data-msg="Informe a cidade da obra." list="city-list" autocomplete="address-level2" placeholder="Ex.: Ribeirão Preto" aria-describedby="contato-cidade-err"><span class="err" id="contato-cidade-err" role="alert"></span></div>
 <div class="fld span-2"><label for="contato-descricao">Descrição da necessidade</label><textarea id="contato-descricao" name="descricao" required data-msg="Descreva o que você precisa." rows="4" minlength="10" placeholder="Conte o que você precisa e onde." aria-describedby="contato-descricao-err"></textarea><span class="err" id="contato-descricao-err" role="alert"></span></div>
 <div class="fld span-2"><label for="contato-prazo">Prazo desejado <i>(opcional)</i></label><input id="contato-prazo" name="prazo" type="text"  placeholder="Ex.: iniciar em 30 dias" aria-describedby="contato-prazo-err"><span class="err" id="contato-prazo-err" role="alert"></span></div>
-<div class="fld span-2"><label class="consent" for="contato-consent"><input type="checkbox" id="contato-consent" name="consent" required data-msg="Para enviar, aceite a Política de Privacidade." aria-describedby="contato-consent-err"><span>Li e concordo com a <button type="button" class="link" data-open="privacy-dialog">Política de Privacidade</button>.</span></label><span class="err" id="contato-consent-err" role="alert"></span></div>
+<p class="form-note span-2">Ao continuar, o WhatsApp será aberto com a mensagem pronta para você revisar e enviar. Nada é enviado automaticamente. Saiba mais na <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>
 <div class="span-2 form-actions"><button class="btn btn-light" type="submit">Solicitar conexão <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
 <div class="span-2 status" role="status" aria-live="polite" tabindex="-1"></div>
 </form>
@@ -235,7 +235,7 @@
     <div><h4>Contato</h4><ul id="foot-contact"></ul></div>
   </div>
   <div class="foot-legal"><span>© <span id="year">2026</span> Rede Prime. Todos os direitos reservados.</span>
-    <div><button type="button" data-open="privacy-dialog">Política de Privacidade</button><button type="button" data-open="terms-dialog">Termos de Uso</button></div></div>
+    <div><a href="privacidade.html">Política de Privacidade</a><a href="termos.html">Termos de Uso</a></div></div>
 </div></footer>
 
 <datalist id="city-list" data-city-list></datalist>
@@ -271,29 +271,10 @@
 <div class="fld"><label for="parceiro-cidade">Cidade-base</label><input id="parceiro-cidade" name="cidade" type="text" required data-msg="Informe a cidade." list="city-list" autocomplete="address-level2" placeholder="" aria-describedby="parceiro-cidade-err"><span class="err" id="parceiro-cidade-err" role="alert"></span></div>
 <div class="fld"><label for="parceiro-whatsapp">WhatsApp</label><input id="parceiro-whatsapp" name="whatsapp" type="tel" required data-msg="Informe seu WhatsApp com DDD." autocomplete="tel" inputmode="tel" placeholder="(DDD) 90000-0000" aria-describedby="parceiro-whatsapp-err"><span class="err" id="parceiro-whatsapp-err" role="alert"></span></div>
 <div class="fld"><label for="parceiro-email">E-mail <i>(opcional)</i></label><input id="parceiro-email" name="email" type="email" autocomplete="email" placeholder="" aria-describedby="parceiro-email-err"><span class="err" id="parceiro-email-err" role="alert"></span></div>
-<div class="fld span-2"><label class="consent" for="parceiro-consent"><input type="checkbox" id="parceiro-consent" name="consent" required data-msg="Para enviar, aceite a Política de Privacidade." aria-describedby="parceiro-consent-err"><span>Li e concordo com a <button type="button" class="link" data-open="privacy-dialog">Política de Privacidade</button>.</span></label><span class="err" id="parceiro-consent-err" role="alert"></span></div>
+<p class="form-note span-2">Ao continuar, o WhatsApp será aberto com a mensagem pronta para você revisar e enviar. Nada é enviado automaticamente. Saiba mais na <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</p>
 <div class="span-2 form-actions"><button class="btn btn-light" type="submit">Enviar cadastro <svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
 <div class="span-2 status" role="status" aria-live="polite" tabindex="-1"></div>
 </form>
-</div></dialog>
-
-<dialog id="privacy-dialog" aria-labelledby="priv-title"><div class="dlg legal-txt">
-  <div class="dlg-head"><h2 id="priv-title">Política de Privacidade</h2><button class="icon-btn" type="button" data-close aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-  <p class="draft">Minuta para revisão jurídica. Antes da publicação, informe razão social, CNPJ e canal do titular dos dados.</p>
-  <h3>Dados que coletamos</h3><p>Nome, WhatsApp, cidade, e-mail (quando informado), segmento de atuação e a descrição da necessidade enviada nos formulários.</p>
-  <h3>Para que usamos</h3><p>Entrar em contato, compreender a demanda e conectar você a parceiros compatíveis; no caso de parceiros, avaliar o cadastro e informar oportunidades.</p>
-  <h3>Compartilhamento</h3><p>Os dados de uma solicitação podem ser compartilhados com parceiros da Rede Prime apenas na medida necessária para atender a demanda. Não vendemos dados pessoais.</p>
-  <h3>Seus direitos (LGPD)</h3><ul><li>Confirmar a existência de tratamento e acessar seus dados.</li><li>Corrigir, anonimizar ou excluir dados.</li><li>Revogar o consentimento a qualquer momento.</li></ul>
-  <h3>Contato do controlador</h3><p>[A definir pelo cliente]</p>
-</div></dialog>
-
-<dialog id="terms-dialog" aria-labelledby="terms-title"><div class="dlg legal-txt">
-  <div class="dlg-head"><h2 id="terms-title">Termos de Uso</h2><button class="icon-btn" type="button" data-close aria-label="Fechar"><svg class="ic" aria-hidden="true"><use href="#i-close"/></svg></button></div>
-  <p class="draft">Minuta para revisão jurídica antes da publicação.</p>
-  <h3>Papel da Rede Prime</h3><p>A Rede Prime conecta quem precisa de serviços de construção com profissionais e empresas parceiras. A Rede Prime não executa obras.</p>
-  <h3>Contratação</h3><p>A contratação, o orçamento, o prazo e a execução são acordados diretamente entre cliente e parceiro, que respondem por seus serviços.</p>
-  <h3>Informações do site</h3><p>Exemplos de oportunidades e indicadores eventualmente exibidos são ilustrativos, quando assim identificados.</p>
-  <h3>Alterações</h3><p>Estes termos podem ser atualizados. [Condições adicionais a definir pelo cliente]</p>
 </div></dialog>
 
 <script src="assets/js/data.js"></script>

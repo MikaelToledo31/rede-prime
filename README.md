@@ -17,7 +17,10 @@ Envie a pasta inteira para qualquer hospedagem estática (Netlify, Vercel, Cloud
 ## Formulários
 Os dois formulários ("Tem uma demanda?" e "Área do Parceiro") apenas montam uma mensagem e abrem o WhatsApp da Rede Prime (número em `config.whatsappNumber`). O site não envia, salva nem armazena os dados; o usuário revisa e envia a mensagem pelo próprio WhatsApp. Os modelos de mensagem estão em `MSG`, no `assets/js/main.js`.
 
+## Páginas legais
+`privacidade.html` e `termos.html` (conteúdo em texto simples no gerador; edite o HTML diretamente). São versão inicial: veja `PENDENCIAS-JURIDICAS.md` antes de publicar.
+
 ## Antes de publicar
 1. Definir `canonical` e `og:image` no index.html; criar sitemap.xml e favicon final.
-2. Revisar Política de Privacidade e Termos (são minutas).
+2. Revisar Política de Privacidade e Termos com advogado e preencher as pendências de `PENDENCIAS-JURIDICAS.md`.
 3. Confirmar números e trocar `showPlaceholderNotices` para false.

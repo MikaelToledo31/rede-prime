@@ -9,7 +9,7 @@ window.REDE_PRIME = {
     // Os formulários não enviam dados: apenas abrem o WhatsApp abaixo com a mensagem montada.
     whatsappNumber: "5516992614260",   // somente dígitos: DDI + DDD + número (+55 16 99261-4260)
     whatsappMessage: "Olá! Vim pelo site da Rede Prime e gostaria de mais informações.",
-    email: "",
+    email: "redeprimee@gmail.com",
     phone: "",
     address: "",
     social: { instagram: "https://www.instagram.com/redeprimes/", linkedin: "", youtube: "" },

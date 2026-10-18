@@ -20,7 +20,10 @@ Os dois formulários ("Tem uma demanda?" e "Área do Parceiro") apenas montam um
 ## Páginas legais
 `privacidade.html` e `termos.html` (conteúdo em texto simples no gerador; edite o HTML diretamente). São versão inicial: veja `PENDENCIAS-JURIDICAS.md` antes de publicar.
 
+## SEO e domínio
+O domínio configurado é `https://redeprimes.com.br` (canonical, Open Graph, dados estruturados, `sitemap.xml`, `robots.txt` e `llms.txt`). Para trocá-lo: `python3 scripts/definir-dominio.py https://novo.com.br --de https://redeprimes.com.br`. Detalhes e pendências em `SEO-REPORT.md`.
+
 ## Antes de publicar
-1. Definir `canonical` e `og:image` no index.html; criar sitemap.xml e favicon final.
+1. Publicar em `https://redeprimes.com.br` com HTTPS e redirecionar o `www`; enviar o sitemap ao Google Search Console.
 2. Revisar Política de Privacidade e Termos com advogado e preencher as pendências de `PENDENCIAS-JURIDICAS.md`.
 3. Confirmar números e trocar `showPlaceholderNotices` para false.

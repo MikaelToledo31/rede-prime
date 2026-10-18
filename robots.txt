@@ -1,3 +1,6 @@
+# robots.txt — Rede Prime
+# O endereço do sitemap abaixo é preenchido por scripts/definir-dominio.py
 User-agent: *
 Allow: /
-# Adicione aqui: Sitemap: https://SEU-DOMINIO/sitemap.xml
+
+Sitemap: https://redeprimes.com.br/sitemap.xml

@@ -49,6 +49,7 @@ Domínio de produção configurado: **https://redeprimes.com.br**
 **Metadados** (em `index.html`, `privacidade.html` e `termos.html`): `lang="pt-BR"`, título e descrição próprios por página, `canonical`, Open Graph (inclui `og:image` de 1200×630) e Twitter Card `summary_large_image`.
 - Home: título "Rede Prime | Negócios da Construção Civil em Ribeirão Preto" e descrição de 156 caracteres.
 - Não há `meta robots`: o padrão dos buscadores é indexar.
+- **Verificação do Google Search Console:** a meta tag `google-site-verification` está no `<head>` de `index.html` (somente na home, que é a página raiz do domínio). Ela só comprova a propriedade depois que o site estiver publicado em `https://redeprimes.com.br` e o Google fizer a verificação; até lá, a presença da tag não significa que o domínio foi verificado.
 
 **URLs canônicas:** cada página aponta para si mesma em `https://redeprimes.com.br` (a home como `/`; as demais como `/privacidade.html` e `/termos.html`). O mesmo endereço aparece em `og:url`, nos dados estruturados e no sitemap.
 
@@ -87,8 +88,8 @@ Também é possível abrir `index.html` direto no navegador. As fontes do Google
 1. **Hospedagem:** envie a pasta inteira para uma hospedagem estática (Netlify, Vercel, Cloudflare Pages, GitHub Pages ou hospedagem comum), servindo o site em `https://redeprimes.com.br` com HTTPS.
 2. **Versão única:** redirecione `www.redeprimes.com.br` para `redeprimes.com.br` (e `http` para `https`), para manter a versão canônica.
 3. **Raiz do domínio:** confirme que `https://redeprimes.com.br/robots.txt`, `/sitemap.xml` e `/llms.txt` abrem.
-4. **Google Search Console** (ainda não configurado; nada foi enviado nem verificado):
-   1. Em search.google.com/search-console, adicione a propriedade e verifique-a (por DNS ou pelo método que o Google indicar).
+4. **Google Search Console** (meta tag de verificação já instalada, mas a verificação ainda não foi feita e nada foi enviado):
+   1. Em search.google.com/search-console, adicione a propriedade e verifique-a. A meta tag de verificação já está no `index.html`: após publicar o site, escolha o método "Tag HTML" (propriedade de prefixo de URL, `https://redeprimes.com.br/`) e clique em **Verificar**. Não remova a tag depois da verificação, porque o Google pode checá-la novamente.
    2. Em **Sitemaps**, envie `sitemap.xml`.
    3. Em **Inspeção de URL**, inspecione `https://redeprimes.com.br/` e, se apropriado, solicite a indexação.
    4. Acompanhe os relatórios de **Páginas** (indexação) e de **Desempenho**, e corrija os problemas apontados.
